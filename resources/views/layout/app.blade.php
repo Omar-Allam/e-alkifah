@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="{{url('/')}}">
-                <img class="image navbar-brand" src="{{asset('/images/k_logo.png')}}" style="width: 100px;height:50px;padding: 0" >
+                <img class="image navbar-brand" src="{{asset('/images/kifahlogo.png')}}" style="width: 80px;height:50px;padding: 0" >
             </a>
         </div>
 
