@@ -37,17 +37,7 @@
                         <li><a href="{{url('/login')}}">تسجيل الدخول</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">التصنيف <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Design</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Academics</a></li>
-                    </ul>
-                </li>
+
                 <li><a href="#">دوراتي  <i class="fa fa-twitch"></i> </a></li>
                 <li><a href="{{route('report.index')}}"> التقارير <i class="fa fa-bar-chart"></i></a></li>
             </ul>
