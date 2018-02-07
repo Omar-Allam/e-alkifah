@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/course','CourseController@show')->name('course.show');
+Route::get('/about-us', 'HomeController@about')->name('about.index');
+Route::get('/announce', 'CourseController@announce')->name('announce');
+Route::get('/add-rate', 'CourseController@addRate')->name('rate.add');
+Route::get('/create-course', 'CourseController@create')->name('course.create');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

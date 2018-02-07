@@ -13,8 +13,7 @@
 </head>
 <body>
 
-
-<nav class="navbar navbar-default" >
+<nav class="navbar navbar-default" style="min-height: 120px;">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header" dir="rtl">
@@ -25,41 +24,60 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <ul class="nav navbar-nav navbar-left">
+            <ul class="nav navbar-nav navbar-left" style="margin: 20px;">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">الحساب <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{url('/register')}}">التسجيل</a></li>
+                        <li><a href="{{url('/register')}}"> التسجيل</a></li>
                         <li><a href="{{url('/login')}}">تسجيل الدخول</a></li>
                     </ul>
                 </li>
-
-
-                <li><a href="#">كورساتي</a></li>
-                <li><a href="{{route('report.index')}}">التقارير</a></li>
-
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">التصنيف <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Academics</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">دوراتي  <i class="fa fa-twitch"></i> </a></li>
+                <li><a href="{{route('report.index')}}"> التقارير <i class="fa fa-bar-chart"></i></a></li>
             </ul>
 
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">بحث</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
 
+            <form class="navbar-form navbar-left" style="margin: 30px;">
+                <div class="form-group">
+                    <input type="text" class="form-control " placeholder="بحث" >
+                </div>
+                <button type="submit" class="btn btn-default"> بحث <i class="fa fa-search"></i></button>
+            </form>
+
+
+
+
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="{{url('/')}}">
-                        <img class="image navbar-brand" src="{{asset('/images/kifahlogo.png')}}" style="width: 100px;height:80px;padding: 0" >
+                        <img class="image navbar-brand" src="{{asset('/images/kifahlogo.png')}}" style="width: 90px;height:90px;padding: 0" >
                     </a>
                 </li>
             </ul>
+
+
+            <ul class="nav navbar-nav navbar-right" style="margin: 20px;">
+                <li><a href="{{route('announce')}}">{{t('الإعلان عن دورة جديدة')}} <i class="fa fa-bullhorn" ></i></a></li>
+                <li><a href="{{route('rate.add')}}">{{t('إضافة  تقييم')}} <i class="fa fa-plus"></i></a></li>
+                <li><a href="{{route('course.create')}}">{{t('إضافة دورة')}} <i class="fa fa-hacker-news"></i></a></li>
+            </ul>
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
@@ -70,14 +88,6 @@
     </div>
 </div>
 
-<footer>
-    <div class="footer-copyright">
-        <div class="container-fluid">
-            © حقوق النشر محفوظة <a href="#"> KIFAH</a>
-
-        </div>
-    </div>
-</footer>
 <script src="{{asset('js/app.js')}}"></script>
 @yield('javascript')
 </body>
