@@ -10,6 +10,7 @@
             <label for="course_subject">{{t('المدرب')}}</label>
             <input type="text" class="form-control" id="course_subject" placeholder="{{t('المدرب')}}">
         </div>
+
         <div class="form-group" dir="rtl">
             <label for="exampleInputFile">{{t('وصف للدورة')}}</label>
             <textarea class="form-control" rows="9"></textarea>
