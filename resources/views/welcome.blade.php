@@ -18,7 +18,7 @@
                             <h3>دورة #١</h3>
                             <p>معلومات الدورة</p>
                             <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                            <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
+                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
                             </p>
                         </div>
                     </div>
