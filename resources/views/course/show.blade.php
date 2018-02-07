@@ -3,8 +3,6 @@
 @section('body')
     <div class="alert alert-info text-center" role="alert">
         <h3>دورة #١</h3>
-
-
     </div>
     <div class="btn-group-lg btn-group">
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
