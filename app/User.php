@@ -14,9 +14,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['first_name'
+        , 'last_name'
+        , 'mobile'
+        , 'email'
+        , 'password'
+        , 'gender'
+        , 'type'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -26,4 +30,29 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    static $ADMIN_TYPE=1;
+    static $TEACHER_TYPE=2;
+    static $TRAINER_TYPE=3;
+
+
+    function isAdmin(){
+        return $this->type == self::$ADMIN_TYPE;
+    }
+
+    function isTeacher(){
+        return $this->type == self::$TEACHER_TYPE;
+    }
+
+    function isTrainer(){
+        return $this->type == self::$TRAINER_TYPE;
+    }
+
+    function courses(){
+        return $this->belongsToMany(Course::class,'teacher_courses','teacher_id','course_id');
+    }
+
+    function hasRegistered(){
+        return $this->courses->pluck('id')->toArray();
+    }
 }

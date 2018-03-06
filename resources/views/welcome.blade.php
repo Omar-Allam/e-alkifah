@@ -11,78 +11,26 @@
         <div class="panel-heading">آخر الدورات</div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
+                @foreach(\App\Course::all() as $course)
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{$course->logo}}" width="100%" height="300">
+                            <div class="caption">
+                                <h3>{{$course->name}}</h3>
+                                <p>{!! $course->description !!}</p>
+                                <p>
+                                    <a href="{{route('course.show',$course)}}" class="btn btn-danger"
+                                       role="button">عرض</a>
+                                    @if(Auth::user() && !in_array($course->id,Auth::user()->hasRegistered()))
+                                        <a href="{{route('course.register',$course)}}" class="btn btn-warning"
+                                           role="button">التسجيل</a>
+                                    @endif
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="{{asset('images/logo-course.jpg')}}" width="100%" height="300">
-                        <div class="caption">
-                            <h3>دورة #١</h3>
-                            <p>معلومات الدورة</p>
-                            <p><a href="{{route('course.show')}}" class="btn btn-danger" role="button">عرض</a>
-                                <a href="{{route('course.show')}}" class="btn btn-warning" role="button">التسجيل</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
         <div class="panel-footer">

@@ -14,13 +14,21 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/course','CourseController@show')->name('course.show');
-Route::get('/about-us', 'HomeController@about')->name('about.index');
-Route::get('/announce', 'CourseController@announce')->name('announce');
-Route::get('/add-rate', 'CourseController@addRate')->name('rate.add');
-Route::get('/create-course', 'CourseController@create')->name('course.create');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/reports', 'ReportController@index')->name('report.index');
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/course/{course}','CourseController@show')->name('course.show');
+    Route::post('/course','CourseController@store')->name('course.store');
+    Route::get('/about-us', 'HomeController@about')->name('about.index');
+    Route::get('/announce', 'CourseController@announce')->name('announce');
+    Route::post('/announce', 'CourseController@announceCourse')->name('course.announce');
+    Route::get('/add-rate', 'CourseController@addRate')->name('rate.add');
+    Route::get('/create-course', 'CourseController@create')->name('course.create');
+    Route::get('/reports', 'ReportController@index')->name('report.index');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    Route::get('register/{course}','CourseController@registerToCourse')->name('course.register');
+    Route::get('get-video','CourseController@loadvideo');
+});
+
+Auth::routes();
 

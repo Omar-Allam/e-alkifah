@@ -11,15 +11,29 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">الإسم</label>
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <label for="first_name" class="col-md-4 control-label">الإسم الأول</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="first_name" class="col-md-4 control-label">اسم العائلة </label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -79,10 +93,10 @@
                             <label for="name" class="col-md-4 control-label">الجنس</label>
 
                             <div class="col-md-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option>ذكر</option>
-                                    <option>إنثى</option>
+                                <select class="form-control" name="gender">
+                                    <option>Select Gender</option>
+                                    <option value="0">ذكر</option>
+                                    <option value="1">إنثى</option>
                                 </select>
                                 @if ($errors->has('gender'))
                                     <span class="help-block">
