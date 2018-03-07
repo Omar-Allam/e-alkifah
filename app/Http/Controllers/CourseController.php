@@ -42,7 +42,7 @@ class CourseController extends Controller
         $path = public_path() . '/logos/';
         $filename = time() . '.' . $logo->getClientOriginalExtension();
 
-       $course =  Course::create([
+        $course =  Course::create([
             'name' => $request->name,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -54,9 +54,11 @@ class CourseController extends Controller
         $videos = $request->videos;
 
         foreach ($videos as $video){
+            // Test ... video1
             $videoPath = public_path() . '/videos/';
-            $filename = $video->getClientOriginalName() . '.' . $video->getClientOriginalExtension();
+            $filename = $course->name.basename($video->getClientOriginalName(),'.mp4') . '.' . $video->getClientOriginalExtension();
             $video->move($videoPath, $filename);
+
             $course->videos()->create([
                 'course_id'=>$course->id,
                 'type'=>1,

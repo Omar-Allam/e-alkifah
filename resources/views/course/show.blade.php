@@ -37,11 +37,11 @@
                 <div class="embed-responsive embed-responsive-16by9" id="divVideo">
                     <video width="100%" height="100%" allow="encrypted-media" controls
                            controlsList="nodownload">
-
                         <source src="{{$course->video}}" type="video/mp4"/>
                     </video>
                 </div>
             </div>
+            <p>{!! $course->description !!}</p>
         </div>
     </div>
 

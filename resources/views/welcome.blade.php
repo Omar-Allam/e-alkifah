@@ -17,7 +17,6 @@
                             <img src="{{$course->logo}}" width="100%" height="300">
                             <div class="caption">
                                 <h3>{{$course->name}}</h3>
-                                <p>{!! $course->description !!}</p>
                                 <p>
                                     <a href="{{route('course.show',$course)}}" class="btn btn-danger"
                                        role="button">عرض</a>
