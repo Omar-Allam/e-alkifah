@@ -11,7 +11,7 @@
         <div class="panel-heading">آخر الدورات</div>
         <div class="panel-body">
             <div class="row">
-                @foreach(\App\Course::all() as $course)
+                @foreach($courses as $course)
                     <div class="col-md-4">
                         <div class="thumbnail">
                             <img src="{{$course->logo}}" width="100%" height="300">

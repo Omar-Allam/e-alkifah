@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $courses = \App\Course::all();
+        return view('home',compact('courses'));
     }
 }

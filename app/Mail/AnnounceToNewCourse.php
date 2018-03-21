@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Course;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -29,6 +30,7 @@ class AnnounceToNewCourse extends Mailable
     public function build()
     {
         $request = request()->all();
-        return $this->view('mail.announce',compact('request'))->subject('Kifah New Course');
+        $course = Course::find($request['course_name']);
+        return $this->view('mail.announce',compact('course','request'))->subject('Kifah New Course');
     }
 }

@@ -3,6 +3,7 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
+    {{--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>--}}
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,7 +12,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -52,6 +52,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @if(Auth::check())
+                            <li><a href="{{route('user.certifications')}}">شهادتي</a></li>
                             <li><a href="{{url('/logout')}}">تسجيل الخروج</a></li>
                         @else
                             <li><a href="{{url('/register')}}"> التسجيل</a></li>
@@ -63,14 +64,15 @@
                     @if(Auth::user()->isAdmin() )
                         <li><a href="{{route('report.index')}}"> التقارير <i class="fa fa-bar-chart"></i></a></li>
                     @endif
-                    <li><a href="#">دوراتي <i class="fa fa-twitch"></i> </a></li>
+                    <li><a href="{{route('course.mycourses')}}">دوراتي <i class="fa fa-twitch"></i> </a></li>
                 @endif
             </ul>
 
 
-            <form class="navbar-form navbar-left" style="margin: 30px;">
+            <form action="{{route('course.search')}}" class="navbar-form navbar-left" style="margin: 30px;" method="post" >
+                {{csrf_field()}} {{method_field('POST')}}
                 <div class="form-group">
-                    <input type="text" class="form-control " placeholder="بحث">
+                    <input type="text" class="form-control " placeholder="بحث" name="course_name">
                 </div>
                 <button type="submit" class="btn btn-default"> بحث <i class="fa fa-search"></i></button>
             </form>
@@ -88,6 +90,11 @@
 
             @if(Auth::check())
                 <ul class="nav navbar-nav navbar-right" style="margin: 20px;">
+                    @if(Auth::user()->isAdmin() || Auth::user()->isTrainer())
+                        <li><a href="{{route('exam.create')}}">{{t('الإختبارات')}} <i
+                                        class="fa fa-file"></i></a>
+                        </li>
+                    @endif
                     @if(Auth::user()->isAdmin())
                         <li><a href="{{route('announce')}}">{{t('الإعلان عن دورة جديدة')}} <i
                                         class="fa fa-bullhorn"></i></a></li>

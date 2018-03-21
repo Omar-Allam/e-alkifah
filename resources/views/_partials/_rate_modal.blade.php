@@ -7,59 +7,64 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">قيم المحاضرة</h4>
             </div>
-            <div class="modal-body">
-                <div class="question">
-                    <p>رأيك في المحاضر:</p>
-                    <fieldset id="group1">
+            <form action="{{route('course.rate',$course)}}" method="post">
+                {{csrf_field()}} {{method_field('POST')}}
+                <div class="modal-body">
+                    @if(!$course->hasRate->count())
+                        @foreach($course->questions as $question)
+                            <div class="question">
+                                <p>{{$question->content}}</p>
+                                <fieldset id="{{$question->id}}">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="rate[{{$question->id}}]" id="optionsRadios1"
+                                                   value="4"
+                                                   checked>
+                                            ممتاز
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="rate[{{$question->id}}]" id="optionsRadios2"
+                                                   value="3">
+                                            جيد جدا
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="rate[{{$question->id}}]" id="optionsRadios2"
+                                                   value="2">
+                                            جيد
+                                        </label>
+                                    </div>
 
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                            ممتاز
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                            جيد جدا
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                            جيد
-                        </label>
-                    </div>
-                    </fieldset>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="rate[{{$question->id}}]" id="optionsRadios2"
+                                                   value="1">
+                                            ضعيف
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="alert alert-info" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            تم التقييم
+                        </div>
+                    @endif
                 </div>
-                <div class="question">
-                    <p>قيم المحاضرة :</p>
-                    <fieldset id="group2">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="group2" id="optionsRadios1" value="option1" checked>
-                            ممتاز
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="group2" id="optionsRadios2" value="option2">
-                           جيد جدا
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="group2" id="optionsRadios2" value="option2">
-                            جيد
-                        </label>
-                    </div>
-                    </fieldset>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+                    @if(!$course->hasRate->count())
+                        <button type="submit" class="btn btn-success">قيم</button>
+                    @endif
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
-                <button type="button" class="btn btn-success">قيم</button>
-            </div>
+            </form>
+
+
         </div>
     </div>
 </div>
