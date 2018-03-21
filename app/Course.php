@@ -59,9 +59,9 @@ class Course extends Model
 
     function getRateAttribute()
     {
-        $rates = Rate::where('course_id', $this->id)->get();
+        $rates = Rate::where('course_id', $this->id)->get();//new Course
         if ($rates->count()) {
-            $rate_count = $rates->count();
+            $rate_count = $rates->count();//10
             $full_rate = $rate_count * 4;
             $total_rate = 0;
             foreach ($rates as $rate) {

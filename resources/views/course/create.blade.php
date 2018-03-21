@@ -16,7 +16,7 @@
         <div class="form-group" dir="rtl">
             <label for="exampleInputFile">{{t('الفئة')}}</label>
             <select class="form-control" name="category_id">
-                <option>{{t('Select Category')}}</option>
+                <option value="0">{{t('Select Category')}}</option>
                 @foreach(\App\Category::all() as $category)
                     <option value="{{$category->id}}">
                         {{$category->name}}

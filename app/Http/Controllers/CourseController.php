@@ -65,7 +65,9 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+        if (!$request['name'] || $request['category_id'] == 0 || !$request->videos || !$request->file('logo')) {
+            return redirect()->back();
+        }
 
         $logo = $request->file('logo');
         $path = public_path() . '/logos/';
@@ -161,7 +163,7 @@ class CourseController extends Controller
         if ($request['question'] && count($request['question'])) {
             $count = count($request['question']);
             $total_degree = 100;
-            $answer_degree = $total_degree / $count;
+            $answer_degree = $total_degree / $count;//10
             $exam_degree = 0;
             foreach ($request['question'] as $key => $answer) {
                 TeacherAnswer::create([

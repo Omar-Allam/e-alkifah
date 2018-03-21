@@ -76,7 +76,7 @@
 
 @section('javascript')
     <script>
-        let last_video = {{$course->videos->last()->id}};
+        let last_video = {{$course->videos->last()->id ?? 0}};
         let clicked_video = 0;
 
         $('button.list-group-item').click(function () {

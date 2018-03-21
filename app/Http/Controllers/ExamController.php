@@ -19,15 +19,16 @@ class ExamController extends Controller
     function store(Request $request)
     {
         $course = Course::find($request->course_id);
+
         $exam = Exam::create([
             'name' => $course->name,
             'course_id' => $course->id
-        ]);
+        ]);//1
 
         foreach ($request['question'] as $question) {
             $newQuestion = ExamQuestion::create([
                 'subject' => $question['subject'],
-                'exam_id' => $exam->id
+                'exam_id' => $exam->id//1
             ]);
 
             foreach ($question['answers'] as $key => $answer) {

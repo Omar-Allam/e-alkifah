@@ -34,15 +34,12 @@
                         <div class="alert alert-info" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                             <span class="sr-only">Error:</span>
-                            تم التقييم
                         </div>
                     @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
-                    @if(!$course->hasRate->count())
                         <button type="submit" class="btn btn-success">إرسال</button>
-                    @endif
                 </div>
             </form>
 
