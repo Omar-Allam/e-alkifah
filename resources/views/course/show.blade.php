@@ -78,6 +78,7 @@
     <script>
         let last_video = {{$course->videos->last()->id ?? 0}};
         let clicked_video = 0;
+        let course = {{$course->id}}
 
         $('button.list-group-item').click(function () {
             var videoid = $(this).data('id')
@@ -90,7 +91,6 @@
                 },
 
             }).done((res) => {
-                console.log(res)
                 var $video = $('#divVideo video')
                 var videoFile = 'http://e-kifah.test/' + res.path;
                 videoSrc = $('source', $video).attr('src', videoFile);
@@ -101,7 +101,18 @@
 
         document.getElementById('video').addEventListener('ended', function () {
             if (clicked_video === last_video) {
-                $('#courseExam').css('display','block');
+                // $('#courseExam').css('display','block');
+                $.ajax({
+                    type: 'GET',
+                    url: "/get-certification",
+                    data: {
+                        id: course
+                    },
+
+                }).done((res) => {
+                    window.location.href = '{{route("exam.certified",$course)}}';
+                });
+
             }
         }, false);
 

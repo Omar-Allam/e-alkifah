@@ -50,6 +50,10 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
+    function getCertified(Course $course){
+        Certification::create(['user_id' => Auth::id(), 'course_id' => $course->id]);
+        return redirect()->route('exam.certified', ['course' => $course]);
+    }
     public function rateCourse(Request $request, Course $course)
     {
         foreach ($request['rate'] as $key => $rate) {
@@ -191,5 +195,16 @@ class CourseController extends Controller
 
         }
         return redirect()->back();
+    }
+
+    function getCertification(Request $request){
+        $certifiesBefore = Certification::where('course_id',$request->get('id'))->first();
+        if(!$certifiesBefore){
+            Certification::create(['user_id' => Auth::id(), 'course_id' => $request->get('id')]);
+            $course  = Course::find($request->get('id'));
+            return redirect()->route('exam.certified', ['course' => $course]);
+        }
+
+
     }
 }
