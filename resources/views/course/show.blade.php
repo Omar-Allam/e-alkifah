@@ -101,7 +101,6 @@
 
         document.getElementById('video').addEventListener('ended', function () {
             if (clicked_video === last_video) {
-                // $('#courseExam').css('display','block');
                 $.ajax({
                     type: 'GET',
                     url: "/get-certification",
@@ -110,7 +109,12 @@
                     },
 
                 }).done((res) => {
-                    window.location.href = '{{route("exam.certified",$course)}}';
+                    if(res == 0 ){
+                        window.location.href = '{{route("exam.certifiedBefore")}}'
+                    }
+                    else{
+                        window.location.href = '{{route("exam.certified",$course)}}'
+                    }
                 });
 
             }

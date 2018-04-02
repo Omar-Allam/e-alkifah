@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js" />
+
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -90,11 +92,6 @@
 
             @if(Auth::check())
                 <ul class="nav navbar-nav navbar-right" style="margin: 20px;">
-                    @if(Auth::user()->isAdmin() || Auth::user()->isTrainer())
-                        <li><a href="{{route('exam.create')}}">{{t('الإختبارات')}} <i
-                                        class="fa fa-file"></i></a>
-                        </li>
-                    @endif
                     @if(Auth::user()->isAdmin())
                         <li><a href="{{route('announce')}}">{{t('الإعلان عن دورة جديدة')}} <i
                                         class="fa fa-bullhorn"></i></a></li>
@@ -116,6 +113,7 @@
 
 <div class="container-fluid">
     <div id="app">
+        @include('sweetalert::alert')
         @yield('body')
     </div>
 </div>

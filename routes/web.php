@@ -43,20 +43,10 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/exam/create','ExamController@create')->name('exam.create');
     Route::post('/exam/store','ExamController@store')->name('exam.store');
     Route::get('cert/{course}','ExamController@getCertified')->name('exam.certified');
+    Route::get('certBefore','CourseController@certifiedBefore')->name('exam.certifiedBefore');
     Route::get('notcert/','ExamController@cantCertified')->name('exam.notcertified');
     Route::get('my_certifications/','ReportController@certifications')->name('user.certifications');
-    Route::get('/pdf/{course}', function() {
-        $course = \App\Course::find(13);
-        $html = view('course.exam.certification',compact('course'))->render();
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($html);
-        return $pdf->stream();
-    });
-    Route::get('/pdf/view', function() {
-        $html = view('course.exam.certification',compact('course'))->render();
 
-        return PDF::load($html)->download();
-    });
 });
 
 Auth::routes();

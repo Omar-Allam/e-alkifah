@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use League\Flysystem\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseController extends Controller
 {
@@ -42,18 +43,23 @@ class CourseController extends Controller
     function addQuestion(Request $request)
     {
         foreach ($request['question'] as $question) {
-            Question::create([
-                'content' => $question,
-                'course_id' => $request['course_id']
-            ]);
+            if($question){
+                Question::create([
+                    'content' => $question,
+                    'course_id' => $request['course_id']
+                ]);
+            }
         }
+        alert('التقييم', 'تم إضافة التقييم', 'success')->showCloseButton();
         return redirect()->back();
     }
 
-    function getCertified(Course $course){
+    function getCertified(Course $course)
+    {
         Certification::create(['user_id' => Auth::id(), 'course_id' => $course->id]);
         return redirect()->route('exam.certified', ['course' => $course]);
     }
+
     public function rateCourse(Request $request, Course $course)
     {
         foreach ($request['rate'] as $key => $rate) {
@@ -70,7 +76,8 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         if (!$request['name'] || $request['category_id'] == 0 || !$request->videos || !$request->file('logo')) {
-            return redirect()->back();
+                alert('خطأ في إنشاء الدورة', 'يرجى إكمال البيانات الخاصة بالدورة', 'error')->showCloseButton();
+                return redirect()->back();
         }
 
         $logo = $request->file('logo');
@@ -102,15 +109,21 @@ class CourseController extends Controller
             ]);
         }
 
-
+        alert('إضافة دورة', 'تم إضافة الدورة بنجاح', 'success')->showCloseButton();
         return redirect()->route('course.show', $course);
     }
 
     function announceCourse(Request $request)
     {
+        if(!$request['description']){
+            alert('خطأ في الإعلان', 'يرجى تعبئة وصف الدورة', 'error')->showCloseButton();
+            return redirect()->back();
+        }
         Mail::to(User::all()->pluck('email'))
             ->send(new AnnounceToNewCourse());
         $courses = \App\Course::all();
+
+        alert('الإعلان عن دورة', 'تم الإعلان عن الدورة بنجاح', 'success')->showCloseButton();
         return view('welcome', compact('courses'));
     }
 
@@ -119,6 +132,9 @@ class CourseController extends Controller
     {
         $user = Auth::user();
         $user->courses()->syncWithoutDetaching($course->id);
+
+        alert('التسجيل', 'تم التسجيل في الدورة', 'success')->showCloseButton();
+
         return redirect()->route('course.show', compact('course'));
     }
 
@@ -151,6 +167,7 @@ class CourseController extends Controller
                 'video_title' => $video->getClientOriginalName()
             ]);
 
+            alert('إضافة محتوى', 'تم إضافة المحتوى بنجاح', 'success')->showCloseButton();
             return view('course.show', compact('course'));
         }
     }
@@ -161,48 +178,23 @@ class CourseController extends Controller
         return view('welcome', compact('courses'));
     }
 
-
-    function solveExam(Course $course, Request $request)
+    function certifiedBefore()
     {
-        if ($request['question'] && count($request['question'])) {
-            $count = count($request['question']);
-            $total_degree = 100;
-            $answer_degree = $total_degree / $count;//10
-            $exam_degree = 0;
-            foreach ($request['question'] as $key => $answer) {
-                TeacherAnswer::create([
-                    'teacher_id' => Auth::id(),
-                    'course_id' => $course->id,
-                    'exam_id' => $course->exam->id,
-                    'question_id' => $key,
-                    'answer_id' => $answer
-                ]);
-                $answer = Answer::find($answer);
-                $is_solution = $answer->isSolution;
-
-                if ($is_solution) {
-                    $exam_degree += $answer_degree;
-                }
-
-                if ($exam_degree >= 50) {
-                    Certification::create(['user_id' => Auth::id(), 'course_id' => $course->id]);
-                    return redirect()->route('exam.certified', ['course' => $course]);
-                } else {
-                    return redirect()->route('exam.notcertified');
-                }
-            }
-
-
-        }
+        alert('التسجيل', 'تم مشاهدة الدورة من قبل واستخراج شهادة', 'error')->showCloseButton();
         return redirect()->back();
     }
 
-    function getCertification(Request $request){
-        $certifiesBefore = Certification::where('course_id',$request->get('id'))->first();
-        if(!$certifiesBefore){
+
+    function getCertification(Request $request)
+    {
+        $certifiesBefore = Certification::where('course_id', $request->get('id'))->exists();
+
+        if ($certifiesBefore) {
+            return 0;
+        } else {
             Certification::create(['user_id' => Auth::id(), 'course_id' => $request->get('id')]);
-            $course  = Course::find($request->get('id'));
-            return redirect()->route('exam.certified', ['course' => $course]);
+            $course = Course::find($request->get('id'));
+            return response()->json($course);
         }
 
 
