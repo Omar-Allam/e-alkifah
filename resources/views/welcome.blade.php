@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <h1 class="text-center">أهلا بكم في موقع كفاح</h1>
         <p></p>
-        <p><a class="btn btn-primary btn-lg" href="{{route('about.index')}}" role="button">للمزيد عن الموقع ....</a></p>
+        <p><a class="btn btn-primary btn-lg" href="{{route('index.about')}}" role="button">للمزيد عن الموقع ....</a></p>
     </div>
 
     <div class="panel panel-primary">

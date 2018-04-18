@@ -26,4 +26,9 @@ class HomeController extends Controller
         $courses = \App\Course::all();
         return view('home',compact('courses'));
     }
+
+    public function about()
+    {
+        return view('more-info');
+    }
 }

@@ -187,9 +187,9 @@ class CourseController extends Controller
 
     function getCertification(Request $request)
     {
-        $certifiesBefore = Certification::where('course_id', $request->get('id'))->exists();
+        $certifiedBefore = Certification::where('course_id', $request->get('id'))->exists();
 
-        if ($certifiesBefore) {
+        if ($certifiedBefore) {
             return 0;
         } else {
             Certification::create(['user_id' => Auth::id(), 'course_id' => $request->get('id')]);

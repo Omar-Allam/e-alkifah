@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::loginUsingID(2);
-
 Route::get('/', function () {
     $courses = \App\Course::all();
     return view('welcome',compact('courses'));
@@ -29,7 +27,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::get('register/{course}','CourseController@registerToCourse')->name('course.register');
-    Route::get('get-video','CourseController@loadvideo');
+    Route::get('get-video','CourseController@loadvideo')->name('getvideo');
     Route::get('get-certification','CourseController@getCertification')->name('course.certified');
     Route::get('my-courses','CourseController@myCourses')->name('course.mycourses');
     Route::post('add-content/{course}','CourseController@addMoreVideos')->name('course.addContent');
@@ -49,5 +47,7 @@ Route::group(['middleware'=>'auth'],function (){
 
 });
 
+Route::get('about','HomeController@about')->name('index.about');
 Auth::routes();
+
 

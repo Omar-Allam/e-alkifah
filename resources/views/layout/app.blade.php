@@ -99,7 +99,7 @@
                     @if(Auth::user()->isAdmin() || Auth::user()->isTrainer())
                         <li><a href="{{route('rate.add')}}">{{t('إضافة  تقييم')}} <i class="fa fa-plus"></i></a></li>
                     @endif
-                    @if(Auth::user()->isAdmin() || Auth::user()->isTrainer())
+                    @if(Auth::user()->isTrainer())
                         <li><a href="{{route('course.create')}}">{{t('إضافة دورة')}} <i
                                         class="fa fa-hacker-news"></i></a>
                         </li>

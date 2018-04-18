@@ -43,12 +43,6 @@
                         {{basename($video->video_title,'.mp4')}}
                     </button>
                 @endforeach
-                @if($course->exam && !$course->exam->answered)
-                    <a class="list-group-item " type="button" data-toggle="modal"
-                       data-target="#examModal" id="courseExam" style="display: none">
-                        {{$course->exam->name}} Exam
-                    </a>
-                @endif
             </div>
         </div>
         <div class="col-md-7">
@@ -69,7 +63,6 @@
 
     @include('_partials._rate_modal')
     @include('_partials._add_content')
-    @include('_partials._exam')
 
 
 @endsection
